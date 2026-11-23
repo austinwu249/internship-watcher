@@ -1,0 +1,41 @@
+{
+  "filters": {
+    "title_keywords": ["intern", "internship", "co-op", "coop"],
+    "title_require_any": ["supply chain", "operations", "ops", "logistics", "procurement", "sourcing", "purchasing",
+                          "industrial", "manufacturing", "planning", "inventory", "fulfillment", "distribution", "lean",
+                          "continuous improvement", "process improvement", "quality",
+                          "consult", "strategy", "business analyst", "business intelligence", "analyst", "analytics",
+                          "data analy", "data scien", "quant", "decision science", "operations research",
+                          "product manag", "product analyst", "product owner", "associate product",
+                          "project manag", "program manag", "technical program", "pmo"],
+    "title_exclude": ["phd", "ph.d", "masters", "master's", "mba", "senior", "sr.", "director", "principal",
+                      "sales", "marketing", "recruit", "human resources",
+                      "summer 2027", "2027 summer", "summer '27", "spring 2027", "2027 spring",
+                      "winter 2027", "winter 2028", "fall 2028", "summer 2026", "fall 2026"],
+    "years": ["2027", "2028"],
+    "want_cycle_phrases": ["fall 2027", "2027 fall", "spring 2028", "2028 spring", "summer 2028", "2028 summer", "2028 intern"],
+    "reject_cycle_phrases": ["summer 2027", "2027 summer", "summer 2026", "fall 2026", "spring 2026", "spring 2027",
+                             "2026 intern", "- 2026", "(2026)"],
+    "location_exclude": ["india", "china", "singapore", "london", "united kingdom", ", uk", "amsterdam", "netherlands",
+                         "dublin", "ireland", "sydney", "australia", "toronto", "vancouver", "montreal", "canada",
+                         "germany", "berlin", "munich", "france", "paris", "spain", "poland", "switzerland", "zurich",
+                         "israel", "tel aviv", "japan", "tokyo", "korea", "taiwan", "hong kong", "mexico", "brazil"],
+    "location_keep_markers": ["united states", "usa", ", ny", ", ca", ", ga", ", tx", ", wa", ", ma", ", il",
+                              "new york", "chicago", "san francisco", "boston", "seattle", "austin", "atlanta",
+                              "remote - us", "remote, us", "us remote", "remote (us"]
+  },
+  "firms": [
+    {"name": "SimplifyJobs tracker (Fall 27 / Spring 28 / Summer 28)", "ats": "github_json",
+     "url": "https://raw.githubusercontent.com/SimplifyJobs/Summer2026-Internships/dev/.github/scripts/listings.json",
+     "seasons": ["fall 2027", "spring 2028", "summer 2028"]},
+    {"name": "Jane Street", "ats": "greenhouse", "token": "janestreet"},
+    {"name": "Five Rings", "ats": "greenhouse", "token": "fiveringsllc"},
+    {"name": "Optiver", "ats": "greenhouse", "token": "optiverus"},
+    {"name": "Anthropic", "ats": "greenhouse", "token": "anthropic"},
+    {"name": "Stripe", "ats": "greenhouse", "token": "stripe"},
+    {"name": "Figma", "ats": "greenhouse", "token": "figma"},
+    {"name": "Ramp", "ats": "ashby", "token": "ramp"},
+    {"name": "Notion", "ats": "ashby", "token": "notion"},
+    {"name": "Belvedere Trading", "ats": "lever", "token": "belvederetrading"}
+  ]
+}
