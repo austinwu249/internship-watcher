@@ -64,6 +64,27 @@ def fetch_workable(firm):
              "url": j.get("url") or j.get("application_url") or "", "content": (j.get("description") or "").lower()} for j in r.json().get("jobs", [])]
 
 
+def fetch_workday(firm):
+    """Workday careers sites (banks, big companies). Config needs host/tenant/site from the
+    careers URL: https://<host>/<site>  ->  POST https://<host>/wday/cxs/<tenant>/<site>/jobs.
+    Searches only "intern" so we page through a few dozen results, not thousands."""
+    base = f"https://{firm['host']}/wday/cxs/{firm['tenant']}/{firm['site']}/jobs"
+    out, total, offset = [], None, 0
+    while offset < 400 and (total is None or offset < total):
+        r = requests.post(base, json={"appliedFacets": {}, "limit": 20, "offset": offset,
+                                      "searchText": firm.get("search", "intern")}, headers=HEADERS, timeout=TIMEOUT)
+        r.raise_for_status(); d = r.json()
+        if total is None: total = d.get("total") or 0   # Workday only reports total on page 1
+        posts = d.get("jobPostings") or []
+        if not posts: break
+        for j in posts:
+            path = j.get("externalPath") or ""
+            out.append({"id": path or j.get("title", ""), "title": j.get("title") or "", "location": j.get("locationsText") or "",
+                        "url": f"https://{firm['host']}/en-US/{firm['site']}{path}", "content": ""})
+        offset += 20
+    return out
+
+
 def fetch_github_json(firm):
     """Community tracker repos that publish listings.json (SimplifyJobs / vanshb03
     family). One source = hundreds of companies. `cycle_year` is injected so
@@ -85,7 +106,7 @@ def fetch_github_json(firm):
 
 
 FETCHERS = {"greenhouse": fetch_greenhouse, "lever": fetch_lever, "ashby": fetch_ashby,
-            "workable": fetch_workable, "github_json": fetch_github_json}
+            "workable": fetch_workable, "github_json": fetch_github_json, "workday": fetch_workday}
 
 
 # --------------------------------- filters ---------------------------------- #
