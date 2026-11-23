@@ -105,7 +105,24 @@ def fetch_github_json(firm):
     return out
 
 
-FETCHERS = {"greenhouse": fetch_greenhouse, "lever": fetch_lever, "ashby": fetch_ashby,
+def fetch_github_md(firm):
+    """Markdown-table trackers (jobright-ai/2026-*-Internship). Rows look like
+    | **[Company](url)** | **[Title](url)** | Location | Work Model | Date |  ;  '↳' = same company."""
+    r = requests.get(firm["url"], headers=HEADERS, timeout=TIMEOUT); r.raise_for_status()
+    out, company = [], ""
+    for line in r.text.splitlines():
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) < 3 or not line.lstrip().startswith("|"): continue
+        m = re.search(r"\[([^\]]+)\]\(([^)]+)\)", cells[1])
+        if not m: continue   # header / separator rows
+        if cells[0] != "↳":
+            c = re.search(r"\[([^\]]+)\]", cells[0]); company = (c.group(1) if c else cells[0]).strip("* ")
+        title, link = m.group(1).strip(), m.group(2).split("?")[0]   # drop utm tracking params
+        out.append({"id": link, "title": title, "company": company, "location": cells[2], "url": link, "content": ""})
+    return out
+
+
+FETCHERS = {"github_md": fetch_github_md,"greenhouse": fetch_greenhouse, "lever": fetch_lever, "ashby": fetch_ashby,
             "workable": fetch_workable, "github_json": fetch_github_json, "workday": fetch_workday}
 
 
@@ -141,6 +158,10 @@ def is_relevant(job, f):
     years = [str(y) for y in f.get("years", [])]
     ty = set(re.findall(r"\b(20\d{2})\b", title))
     if years and ty and not (ty & set(years)): return _drop("wrong-year-in-title", title)
+    # e.g. {"2027": ["fall", "co-op"]}: a title whose only year is 2027 must also say fall/co-op,
+    # otherwise it's a Summer 2027 role ("2027 Consulting Intern").
+    for y, needs in f.get("title_year_needs", {}).items():
+        if ty == {y} and not any(n in title for n in needs): return _drop(f"{y}-without-{needs[0]}", title)
     if years and not ty:
         hay = f"{job.get('year_text','')} {title} {(job.get('content') or '')[:4000]}".lower()
         # If want_cycle_phrases is set (e.g. "fall 2027"), it replaces the bare-year

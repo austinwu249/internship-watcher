@@ -76,6 +76,14 @@
       "2027",
       "2028"
     ],
+    "title_year_needs": {
+      "2027": [
+        "fall",
+        "co-op",
+        "coop",
+        "off-cycle"
+      ]
+    },
     "want_cycle_phrases": [
       "fall 2027",
       "2027 fall",
@@ -157,6 +165,11 @@
   },
   "firms": [
     {"name": "SimplifyJobs tracker (Fall 27 / Spring 28 / Summer 28)", "ats": "github_json", "url": "https://raw.githubusercontent.com/SimplifyJobs/Summer2026-Internships/dev/.github/scripts/listings.json", "seasons": [ "fall 2027", "spring 2028", "summer 2028" ]},
+    {"name": "Jobright Business Analyst", "ats": "github_md", "url": "https://raw.githubusercontent.com/jobright-ai/2026-Business-Analyst-Internship/master/README.md"},
+    {"name": "Jobright Consultant", "ats": "github_md", "url": "https://raw.githubusercontent.com/jobright-ai/2026-Consultant-Internship/master/README.md"},
+    {"name": "Jobright Product Management", "ats": "github_md", "url": "https://raw.githubusercontent.com/jobright-ai/2026-Product-Management-Internship/master/README.md"},
+    {"name": "Jobright Data Analysis", "ats": "github_md", "url": "https://raw.githubusercontent.com/jobright-ai/2026-Data-Analysis-Internship/master/README.md"},
+    {"name": "Jobright Management", "ats": "github_md", "url": "https://raw.githubusercontent.com/jobright-ai/2026-Management-Internship/master/README.md"},
     {"name": "Waymo", "ats": "greenhouse", "token": "waymo"},
     {"name": "Stripe", "ats": "greenhouse", "token": "stripe"},
     {"name": "Databricks", "ats": "greenhouse", "token": "databricks"},
